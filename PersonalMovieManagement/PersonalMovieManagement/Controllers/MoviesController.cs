@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PersonalMovieManagement.Controllers
@@ -37,7 +33,16 @@ namespace PersonalMovieManagement.Controllers
         {
         }
 
-        // DELETE: api/ApiWithActions/5
+        /// <summary>
+        /// Delete movie information.
+        /// </summary>
+        /// <remarks>
+        /// DELETE / Movies
+        /// {
+        ///     "id" : 5
+        /// }
+        /// </remarks>
+        /// <param name="id"></param>
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
