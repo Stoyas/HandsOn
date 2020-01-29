@@ -4,4 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PMM.DataAccess\PMM.DataAccess.csproj" />
+    <ProjectReference Include="..\PMM.DTO\PMM.DTO.csproj" />
+  </ItemGroup>
+
 </Project>
