@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.IO;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
@@ -6,7 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Protocols;
 using Microsoft.OpenApi.Models;
+using PMM.DataAccess.Repositories;
+using PMM.Service.Services;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace PersonalMovieManagement
@@ -50,6 +54,15 @@ namespace PersonalMovieManagement
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+            var connectionString = Configuration.GetSection("ConnectionString").Value;
+            var connection = new SqlConnection(connectionString);
+            services.AddTransient<IDbProvider>(d => new DbProvider(connection));
+
+            // Inject Repositories
+            services.AddSingleton<IMovieRepository, MovieRepository>();
+
+            // Inject Services
+            services.AddSingleton<IMovieService, MovieService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

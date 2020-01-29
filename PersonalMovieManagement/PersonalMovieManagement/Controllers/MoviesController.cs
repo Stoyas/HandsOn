@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using PMM.Service.Services;
 
 namespace PersonalMovieManagement.Controllers
 {
@@ -7,30 +9,58 @@ namespace PersonalMovieManagement.Controllers
     [ApiController]
     public class MoviesController : ControllerBase
     {
-        // GET: api/Movies
+        private IMovieService _movieService;
+
+        public MoviesController(IMovieService movieService)
+        {
+            _movieService = movieService;
+        }
+
+        /// <summary>
+        /// Get movie information
+        /// </summary>
+        /// <remarks>
+        /// {
+        ///     "id": 5
+        /// }
+        /// </remarks>
+        /// <returns></returns>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            return Ok();
         }
 
-        // GET: api/Movies/5
+        /// <summary>
+        /// Get single movie information by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public IActionResult GetMovieById(int id)
         {
-            return "value";
+            var movieEntity = _movieService.GetMovieInfo(id);
+            return Ok(movieEntity);
         }
 
-        // POST: api/Movies
+        /// <summary>
+        /// Create new movie information
+        /// </summary>
+        /// <param name="value"></param>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void CreateMovie([FromBody] string value)
         {
         }
 
-        // PUT: api/Movies/5
+        /// <summary>
+        /// Update single movie information
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void UpdateMovie(int id, [FromBody] string value)
         {
+
         }
 
         /// <summary>
@@ -44,7 +74,7 @@ namespace PersonalMovieManagement.Controllers
         /// </remarks>
         /// <param name="id"></param>
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void DeleteMovie(int id)
         {
         }
     }
