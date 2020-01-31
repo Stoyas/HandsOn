@@ -5,6 +5,16 @@ using PMM.ORM.Models;
 
 namespace PMM.Service.Services
 {
+    public interface IMovieService
+    {
+        Movie GetMovieInfo(int id);
+        IEnumerable<Movie> GetMovies();
+        void CreateMovie(Movie movie);
+        void UpdateMovieInfo(Movie movie);
+        void DeleteMovie(int id);
+        StaffDto GetStaff();
+        IEnumerable<Staff> GetStaffs();
+    }
     public class MovieService : IMovieService
     {
         private IMovieRepository _movieRepository;
@@ -35,7 +45,7 @@ namespace PMM.Service.Services
 
         public void DeleteMovie(int id)
         {
-            throw new System.NotImplementedException();
+            _movieRepository.RemoveMovie(id);
         }
 
         public StaffDto GetStaff()

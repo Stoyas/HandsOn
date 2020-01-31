@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using PMM.Common.Exceptions;
 using PMM.DTO.Movies;
 using PMM.ORM.Models;
 using PMM.Service.Services;
@@ -31,9 +33,9 @@ namespace PersonalMovieManagement.Controllers
         /// </remarks>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetAllMovies()
         {
-            return Ok();
+            throw new AppException("hahah");
         }
 
         /// <summary>
@@ -44,7 +46,11 @@ namespace PersonalMovieManagement.Controllers
         [HttpGet("{id}", Name = "Get")]
         public IActionResult GetMovieById(int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest($"Invalid movie id: {id}");
             var movieEntity = _movieService.GetMovieInfo(id);
+            if (null == movieEntity)
+                return NotFound($"Movie was not found with id: {id}");
             var result = _mapper.Map<MovieDto>(movieEntity);
             return Ok(result);
         }
@@ -52,10 +58,12 @@ namespace PersonalMovieManagement.Controllers
         /// <summary>
         /// Create new movie information
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="movieDto"></param>
         [HttpPost]
         public IActionResult CreateMovie([FromBody] MovieDto movieDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest($"Invalid request: {movieDto}");
             var movieEntity = _mapper.Map<Movie>(movieDto);
             _movieService.CreateMovie(movieEntity);
             return Ok(movieDto);
@@ -64,11 +72,14 @@ namespace PersonalMovieManagement.Controllers
         /// <summary>
         /// Update single movie information
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="value"></param>
+        /// <param name="movieDto"></param>
         [HttpPut("{id}")]
-        public IActionResult UpdateMovie(int id, [FromBody] string value)
+        public IActionResult UpdateMovie([FromBody] MovieDto movieDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest($"Invalid request: {movieDto}");
+            var movieEntity = _mapper.Map<Movie>(movieDto);
+            _movieService.UpdateMovieInfo(movieEntity);
             return Ok();
         }
 
@@ -83,8 +94,11 @@ namespace PersonalMovieManagement.Controllers
         /// </remarks>
         /// <param name="id"></param>
         [HttpDelete("{id}")]
-        public IActionResult DeleteMovie(int id)
+        public ActionResult DeleteMovie(int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest($"Invalid movie id: {id}");
+            _movieService.DeleteMovie(id);
             return Ok();
         }
     }

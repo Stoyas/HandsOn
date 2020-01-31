@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PMM.Common\PMM.Common.csproj" />
     <ProjectReference Include="..\PMM.Service\PMM.Service.csproj" />
   </ItemGroup>
 

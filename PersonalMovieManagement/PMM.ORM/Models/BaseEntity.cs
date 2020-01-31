@@ -5,9 +5,9 @@ namespace PMM.ORM.Models
     public class BaseEntity
     {
         /// <summary>
-        /// Created by user
+        /// Id of created user
         /// </summary>
-        public User CreatedBy { get; set; }
+        public int CreatedBy { get; set; }
 
         /// <summary>
         /// Created date time
@@ -15,9 +15,9 @@ namespace PMM.ORM.Models
         public DateTime CreatedDate { get; set; }
 
         /// <summary>
-        /// Updated by user
+        /// Id of updated user
         /// </summary>
-        public User UpdatedBy { get; set; }
+        public int UpdatedBy { get; set; }
 
         /// <summary>
         /// Updated date

@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.IO;
+using System.Net;
 using System.Reflection;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.OpenApi.Models;
+using PMM.Common.Exceptions;
 using PMM.DataAccess.Repositories;
 using PMM.Service.Services;
 using Swashbuckle.AspNetCore.Swagger;
@@ -28,7 +32,12 @@ namespace PersonalMovieManagement
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddMvc(
+                config => { config.Filters.Add(typeof(CustomExceptionFilter)); }
+                ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // Register the Swagger generator
             services.AddSwaggerGen(c =>
@@ -72,6 +81,23 @@ namespace PersonalMovieManagement
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // Enable global exception handling
+            app.UseExceptionHandler(
+                options =>
+                {
+                    options.Run(
+                        async context =>
+                        {
+                            context.Response.StatusCode = (int) HttpStatusCode.OK;
+                            context.Response.ContentType = "text/html";
+                            var ex = context.Features.Get<IExceptionHandlerFeature>();
+                            if (ex != null)
+                            {
+                                var err = $"<h1>Error message: {ex.Error.Message}</h1>{ex.Error.StackTrace}";
+                                await context.Response.WriteAsync(err).ConfigureAwait(false);
+                            }
+                        });
+                });
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 

@@ -1,17 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29215.179
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalMovieManagement", "PersonalMovieManagement\PersonalMovieManagement.csproj", "{626A56E0-20D2-4493-9468-7EF32DF7B857}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalMovieManagement", "PersonalMovieManagement\PersonalMovieManagement.csproj", "{626A56E0-20D2-4493-9468-7EF32DF7B857}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMM.Service", "PMM.Service\PMM.Service.csproj", "{9BDE8EE7-5C95-4C4B-AA6F-1C7F63217D13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PMM.Service", "PMM.Service\PMM.Service.csproj", "{9BDE8EE7-5C95-4C4B-AA6F-1C7F63217D13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMM.DataAccess", "PMM.DataAccess\PMM.DataAccess.csproj", "{7ACBE038-7B29-4A63-8B0C-53B4F9531C92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PMM.DataAccess", "PMM.DataAccess\PMM.DataAccess.csproj", "{7ACBE038-7B29-4A63-8B0C-53B4F9531C92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMM.ORM", "PMM.ORM\PMM.ORM.csproj", "{A835BFB3-13C8-473F-82B3-807F7FA45310}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PMM.ORM", "PMM.ORM\PMM.ORM.csproj", "{A835BFB3-13C8-473F-82B3-807F7FA45310}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMM.DTO", "PMM.DTO\PMM.DTO.csproj", "{F0634E10-E89B-424B-BC40-69B0FFD7ADE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PMM.DTO", "PMM.DTO\PMM.DTO.csproj", "{F0634E10-E89B-424B-BC40-69B0FFD7ADE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMM.Common", "PMM.Common\PMM.Common.csproj", "{A3FE3969-54E0-4457-A947-95114B69E466}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{F0634E10-E89B-424B-BC40-69B0FFD7ADE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0634E10-E89B-424B-BC40-69B0FFD7ADE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0634E10-E89B-424B-BC40-69B0FFD7ADE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3FE3969-54E0-4457-A947-95114B69E466}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3FE3969-54E0-4457-A947-95114B69E466}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3FE3969-54E0-4457-A947-95114B69E466}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3FE3969-54E0-4457-A947-95114B69E466}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
