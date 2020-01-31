@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using PMM.DTO.Movies;
+using PMM.ORM.Models;
 using PMM.Service.Services;
 
 namespace PersonalMovieManagement.Controllers
@@ -9,11 +12,13 @@ namespace PersonalMovieManagement.Controllers
     [ApiController]
     public class MoviesController : ControllerBase
     {
+        private IMapper _mapper;
         private IMovieService _movieService;
 
-        public MoviesController(IMovieService movieService)
+        public MoviesController(IMovieService movieService, IMapper mapper)
         {
             _movieService = movieService;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -40,7 +45,8 @@ namespace PersonalMovieManagement.Controllers
         public IActionResult GetMovieById(int id)
         {
             var movieEntity = _movieService.GetMovieInfo(id);
-            return Ok(movieEntity);
+            var result = _mapper.Map<MovieDto>(movieEntity);
+            return Ok(result);
         }
 
         /// <summary>
@@ -48,8 +54,11 @@ namespace PersonalMovieManagement.Controllers
         /// </summary>
         /// <param name="value"></param>
         [HttpPost]
-        public void CreateMovie([FromBody] string value)
+        public IActionResult CreateMovie([FromBody] MovieDto movieDto)
         {
+            var movieEntity = _mapper.Map<Movie>(movieDto);
+            _movieService.CreateMovie(movieEntity);
+            return Ok(movieDto);
         }
 
         /// <summary>
@@ -58,9 +67,9 @@ namespace PersonalMovieManagement.Controllers
         /// <param name="id"></param>
         /// <param name="value"></param>
         [HttpPut("{id}")]
-        public void UpdateMovie(int id, [FromBody] string value)
+        public IActionResult UpdateMovie(int id, [FromBody] string value)
         {
-
+            return Ok();
         }
 
         /// <summary>
@@ -74,8 +83,9 @@ namespace PersonalMovieManagement.Controllers
         /// </remarks>
         /// <param name="id"></param>
         [HttpDelete("{id}")]
-        public void DeleteMovie(int id)
+        public IActionResult DeleteMovie(int id)
         {
+            return Ok();
         }
     }
 }

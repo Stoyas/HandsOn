@@ -48,7 +48,7 @@ namespace PMM.DataAccess.Repositories
 
         public T GetById(int id, string sql)
         {
-            return _db.GetById<T>(id, sql);
+            return _db.GetById<T>(sql, id);
         }
     }
     

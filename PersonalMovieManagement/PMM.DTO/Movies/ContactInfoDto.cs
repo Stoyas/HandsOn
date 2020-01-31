@@ -1,6 +1,6 @@
 ﻿namespace PMM.DTO.Movies
 {
-    public class ContactInfo
+    public class ContactInfoDto
     {
         public int ContactInfoId { get; set; }
         public string City { get; set; }

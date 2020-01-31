@@ -7,7 +7,9 @@ namespace PMM.DataAccess.Repositories
     {
         void OpenConnection(IDbConnection connection);
         void CloseConnection(IDbConnection connection);
-        T GetById<T>(int id, string sql);
+        T GetById<T>(string sql, int id);
+        void Create<T>(string sql, object param);
+        void Remove<T>(string sql, int id);
     }
 
     public class DbProvider : IDbProvider
@@ -31,12 +33,26 @@ namespace PMM.DataAccess.Repositories
                 connection.Close();
         }
 
-        public T GetById<T>(int id, string sql)
+        public T GetById<T>(string sql, int id)
         {
             OpenConnection(_dbConnection);
             var result = _dbConnection.QueryFirst<T>(sql, new { id = id });
             CloseConnection(_dbConnection);
             return result;
+        }
+
+        public void Create<T>(string sql, object param)
+        {
+            OpenConnection(_dbConnection);
+            _dbConnection.Query(sql, param);
+            CloseConnection(_dbConnection);
+        }
+
+        public void Remove<T>(string sql, int id)
+        {
+            OpenConnection(_dbConnection);
+            _dbConnection.Query(sql, new{id = id});
+            CloseConnection(_dbConnection);
         }
     }
 }

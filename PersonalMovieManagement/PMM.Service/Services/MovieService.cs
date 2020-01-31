@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using PMM.DataAccess.Repositories;
 using PMM.DTO.Movies;
+using PMM.ORM.Models;
 
 namespace PMM.Service.Services
 {
@@ -12,22 +13,22 @@ namespace PMM.Service.Services
             _movieRepository = movieRepository;
         }
 
-        public MovieDto GetMovieInfo(int id)
+        public Movie GetMovieInfo(int id)
         {
             return _movieRepository.GetMovieInfo(id);
         }
 
-        public IEnumerable<MovieDto> GetMovies()
+        public IEnumerable<Movie> GetMovies()
         {
             throw new System.NotImplementedException();
         }
 
-        public void CreateMovie(MovieDto movie)
+        public void CreateMovie(Movie movie)
         {
-            throw new System.NotImplementedException();
+            _movieRepository.CreatedMovie(movie);
         }
 
-        public void UpdateMovieInfo(MovieDto movie)
+        public void UpdateMovieInfo(Movie movie)
         {
             throw new System.NotImplementedException();
         }
@@ -42,7 +43,7 @@ namespace PMM.Service.Services
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<StaffDto> GetStaffs()
+        public IEnumerable<Staff> GetStaffs()
         {
             throw new System.NotImplementedException();
         }

@@ -10,6 +10,6 @@ namespace PMM.DTO.Movies
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public Gender Gender { get; set; }
-        public ContactInfo PrimaryContactInfo { get; set; }
+        public ContactInfoDto PrimaryContactInfo { get; set; }
     }
 }

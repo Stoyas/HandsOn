@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.IO;
 using System.Reflection;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -54,6 +55,9 @@ namespace PersonalMovieManagement
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+            //AutoMapper
+            services.AddAutoMapper(typeof(Startup));
+
             var connectionString = Configuration.GetSection("ConnectionString").Value;
             var connection = new SqlConnection(connectionString);
             services.AddTransient<IDbProvider>(d => new DbProvider(connection));
